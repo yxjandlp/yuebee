@@ -1,0 +1,617 @@
+/*--------  通用样式  ---------*/
+body, div, dl, dt, dd, ul, ol, li,h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+img{
+
+    border:0;
+
+}
+.clear{
+
+    clear: both;
+}
+
+a:link, a:visited {
+
+    color: #005EAC;
+    text-decoration: none;
+
+}
+
+.banner{
+
+    margin: 25px 0;
+
+}
+
+.error_msg,.notification{
+
+    color:red;
+}
+
+.hide{
+
+    display: none;
+}
+
+.main{
+
+    width:980px;
+    margin: 0 auto;
+
+}
+.title{
+
+    color:black;
+    text-decoration: none;
+}
+
+#decoration_link{
+
+    position: absolute;
+    top:0;
+    right: 0;
+
+}
+/*－－ 欢迎界面的顶部菜单样式 －－*/
+#top_menu{
+
+    text-align: right;
+    margin-top:10px;
+
+}
+
+#top_menu li{
+
+    float: right;
+    list-style-type: none;
+
+}
+
+#top_menu a{
+
+    text-decoration: none;
+
+}
+
+/* ----登录表单样式 -----*/
+#login_frm{
+
+    margin-top:40px;
+
+}
+
+/*－－－－ 注册表单样式 －－－－*/
+.registration_form{
+
+    margin:40px 0 0 0;
+
+}
+.form_item{
+
+    margin-bottom:6px;
+
+}
+.registration_left{
+
+    width:100px;
+    float:left;
+    text-align:right;
+
+}
+.registration_right{
+
+    width:300px;
+    float:left;
+
+}
+
+.registration_center{
+
+    width:250px;
+    float:left;
+    padding-left:5px;
+
+}
+
+/*－－ 登录信息错误处理 －－*/
+#login_msg{
+
+    margin-left: 100px;
+
+}
+
+/*-----个人中心--------*/
+#uc_lt{
+    width:220px;
+    float: left;
+    /*background-color: #f0fff0;*/
+}
+
+#uc_center{
+
+    width:550px;
+    float: left;
+}
+
+#uc_rt{
+
+    width: 210px;
+
+    float: left;
+    clear: right;
+}
+
+.avatar{
+
+    float:left;
+    margin: 0 10px 10px 0;
+}
+
+#top_nickname{
+
+    height: 40px;
+}
+
+#top_nickname a{
+
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.operation{
+
+    height: 50px;
+    line-height: 50px;
+}
+.operation a{
+
+    text-decoration: none;
+    font-size: 80%;
+}
+
+.user_info{
+
+    border-bottom: 1px dotted gray;
+
+}
+
+/*---- 个人主中左边链接栏 ---*/
+#sider_lt{
+
+    margin-right: 20px;
+}
+
+.uc_lt_menu li{
+
+    padding-left: 10px;
+    list-style-type: none;
+    border-bottom: 1px dotted gray;
+
+}
+.uc_lt_menu ul{
+
+    padding-left: 0px;
+
+}
+
+.uc_lt_menu a{
+
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.uc_lt_current{
+
+    background-color: #558BC6;
+}
+.uc_lt_current a{
+
+    color: white;
+}
+
+/*--- 状态发布-------*/
+
+#status{
+
+    width:520px;
+    padding:7px 15px;
+    background-color: #F0F5F8;
+    margin-bottom: 10px;
+
+}
+
+#status_action{
+
+    text-align: right;
+}
+
+#status_text{
+
+    width: 510px;
+
+}
+
+#status_text textarea{
+
+    resize: vertical;/*--只允许上下拉申--*/
+    box-shadow: 1px 1px 3px #CCCCCC inset;
+    border: 1px solid gray;
+    overflow-x: hidden;
+    width: 515px;
+
+}
+
+.num{
+
+    text-align: right;
+
+}
+
+.num span{
+
+    font-weight: bold;
+    font-size: 120%;
+
+}
+
+.comment_action{
+
+    text-align: right;
+}
+
+/*-------新鲜事-------*/
+
+.uc_center_menu{
+
+    margin-bottom: 10px;
+}
+
+.uc_center_menu a{
+
+    font-weight: bold;
+}
+
+.status_avatar{
+
+    float: left;
+
+}
+
+.status_main{
+
+    margin-left: 10px;
+    float: left;
+
+}
+
+.status_main p{
+
+    color:#cccccc;
+    margin-bottom: 10px;
+
+}
+
+.status_main_content{
+
+    margin-bottom: 20px;
+
+
+}
+.status_item{
+
+    margin: 10px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted gray;
+
+}
+
+.status_time{
+
+    font-size: 90%;
+    color: gray;
+    height: 30px;
+    line-height: 60px;
+
+}
+
+.status_comment{
+
+    resize: none;
+    height: 25px;
+    width:450px;
+    border: 1px solid #d3d3d3;
+
+}
+
+.comment_avatar{
+
+    float:left;
+
+}
+
+.comment_main{
+
+    float: left;
+
+}
+
+.comment_item{
+
+    padding: 5px 0;
+    border-top: 1px solid #dcdcdc;
+
+}
+
+.more a{
+    background-color: #F0F5F8;
+    border: 1px solid #CEE1EE;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.more a:hover{
+
+    background-color: #dbf2f5;
+
+}
+
+.more_comment{
+
+    height: 50px;
+    line-height: 50px;
+    border-top: 1px solid #dcdcdc;
+
+}
+
+.status_item a:hover,.comment_item a:hover{
+
+    text-decoration: underline;
+
+}
+/*-----个人中心右边栏------*/
+#sider_rt{
+
+    margin-left:20px;
+
+}
+
+
+/*------消息模块--------*/
+.block_menu li,.block_menu a{
+
+    cursor:pointer;
+    text-decoration:none;
+    color:white;
+
+}
+
+.block_menu li{
+
+    display:block;
+    list-style-type:none;
+    border: 1px solid #999;
+    padding:2px 15px;
+    float:left;
+    margin:0 0 -1px 15px;
+    margin-bottom:-1px;
+    background-color:#558BC6;
+
+}
+
+.block_menu ul{
+
+    clear:both;
+    float:left;
+    border-bottom:1px solid #999;
+    width:520px;
+    padding:0;
+
+}
+
+
+.cur{
+
+    background-color: white !important;
+    border-bottom-color:white !important;
+
+}
+
+.cur a{
+
+    color: #558BC6 !important;
+
+}
+
+#notification_area{
+
+    margin-left: 40px;
+}
+
+.notification_item{
+
+    width: 480px;
+    margin: 10px 0;
+    height:70px;
+    line-height: 70px;
+    border-bottom: 1px dotted gray;
+
+}
+
+/*-------好友模块---------*/
+.friend_top_menu{
+
+    border-bottom: 1px solid gray;
+
+}
+
+.friend_item {
+
+
+    margin: 10px 0;
+    height:60px;
+    border-bottom: 1px dotted gray;
+
+}
+
+.friend_nickname {
+
+    margin-left: 10px;
+}
+
+/* -- 回到顶部 --- */
+#back-to-top{
+
+    position:fixed;
+    bottom:10px;
+    right:20px;
+
+}
+
+#back-to-top{
+
+    height:50px;
+    width:50px;
+
+}
+
+.in_hover{
+
+    background:url("../img/back-top.png") no-repeat -50px top;
+
+}
+.out_hover{
+
+    background:url("../img/back-top.png") no-repeat left top;
+
+}
+
+/*---- 个人中心管理-----*/
+#uc_admin_center{
+
+    width:760px;
+    float: left;
+
+}
+
+.upload{
+
+    margin:30px 50px;
+
+}
+
+.avatar_top{
+
+    color:gray;
+    margin-top: 20px;
+    border-bottom: 1px dotted gray;
+    padding-bottom: 10px;
+
+}
+
+/* -----缩略预览图------*/
+.preview_container{
+
+    margin-bottom: 20px;
+
+}
+
+#btn_saves{
+
+    margin-top: 10px;
+
+}
+
+#btn_saves input{
+
+    width:80px;
+}
+
+.admin_menu_top{
+
+    margin-bottom: 10px;
+
+}
+
+.profile_admin{
+
+    margin-top: 20px;
+
+}
+
+.profile_admin form{
+
+    margin: 30px;
+
+}
+
+#basic_profile_frm span{
+
+    display: inline-block;
+    font-weight: normal;
+    margin-right: 6px;
+    text-align: right;
+    vertical-align: top;
+    width: 100px
+
+}
+
+#absolute_top{
+
+    height:0;
+    width:100%;
+    top:0;
+    border-bottom:1px solid #999;
+    background-color: #EFEFEF;
+    overflow: hidden;
+
+}
+#tpl_list{
+
+    background-color: white;
+
+}
+
+.ucenter_tpl{
+
+    width:100px;
+    height: 150px;
+    float: left;
+
+    margin:10px 0 0 20px;
+
+}
+
+.ucenter_tpl_img{
+
+    width: 100px;
+    height: 100px;
+    border: 1px solid #999;
+
+}
+
+.ucenter_tpl_title{
+
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+
+}
+
+#tpl_action{
+
+    text-align: right;
+    height: 25px;
+
+}
+
