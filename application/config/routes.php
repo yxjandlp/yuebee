@@ -41,9 +41,12 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
-$route['users/(:any)/(:any)'] = "users/home/$1/$2";
+$route['users/(:num)/(:any)'] = "users/home/$1/$2";//个人主页
+$route['users/(:num)'] = "users/home/$1";//个人主页
 $route['ucenter/admin'] = "ucenter_admin";//个人中心管理主页
 $route['ucenter/admin/(:any)'] ="ucenter_admin/$1";//个人中心管理
+$route['profile/(:num)/(:any)'] = "users/profile/$1/$2";//个人资料
+$route['friend/(:num)/(:any)'] = "users/friend/$1/$2";//个人主页好友
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

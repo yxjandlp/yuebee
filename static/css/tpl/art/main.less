@@ -1,0 +1,1150 @@
+
+/* CSS Document */
+@base_url: "localhost/test/yuebee/static/img";
+
+*{
+	margin:0;
+	padding:0;
+
+}
+img{
+
+    border: 0;
+
+}
+a:link, a:visited {
+
+    text-decoration: none;
+
+}
+
+#main {
+
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: #e5decb;
+    width: 980px;
+    margin:0 auto;
+    overflow: hidden;
+
+}
+
+#top {
+
+	height: 200px;
+    background:  #ebe7da url("http://@{base_url}/tpl/art/top.png");
+    width:980px;
+
+}
+
+.top_round_menu {
+	width: 160px;
+	padding:50px;
+	float:left;
+    display: inline;
+}
+.round_menu {
+
+	height: 64px;
+	width: 70px;
+	background-image: url("http://@{base_url}/tpl/art/menu_bg.png");
+	text-align: center;
+	line-height: 30px;
+	font-size: 15px;
+	float: left;
+	color: #FFF;
+}
+.round_menu a{
+
+    color: white;
+}
+
+.clear{
+
+	clear:both;
+}
+#top_center{
+	width:460px;
+	float:left;
+
+}
+#title {
+	width: 160px;
+	margin-top:20px;
+	float:left;
+
+}
+#main_title {
+	font-size: 25px;
+	color:#4e3222;
+}
+#side_title{
+	font-size:15px;
+	color:#996666;
+	font-weight:bold;
+}
+
+#top_center_menu{
+	width:300px;
+	float:left;
+	padding-top:20px;
+    background: url("http://@{base_url}/tpl/art/top_menu_main.png") no-repeat 0px 10px;
+
+}
+#top_center_menu_hack{
+
+    background: url("http://@{base_url}/tpl/art/top_menu1_bg.png") 218px 0px no-repeat;
+
+}
+.nav li{
+	float:left;
+	list-style-type:none;
+    background-color:#54472a;
+}
+.nav a{
+	display:block;
+	text-decoration:none;
+	width:54px;
+	margin-right:5px;
+	font-size:16px;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	background-color:#603913;
+	color:white;
+
+}
+#top_menu_1{
+	width:241px;
+	margin-left:30px;
+	background-color:#54472a;
+
+
+}
+#top_menu_2{
+	margin-top:5px;
+
+}
+
+#content{
+
+    margin-top: -60px;
+    background: url("http://@{base_url}/tpl/art/content.png") left 0px no-repeat;
+}
+
+#content_center a{
+
+    color:#603913;
+
+}
+#content_left{
+    width: 260px;
+    float: left;
+
+}
+
+#left_side{
+
+    margin-left: 40px;
+    padding: 5px 37px 10px;
+    text-align: center;
+    width:106px;
+    background: #c69c6d;
+}
+#nickname{
+
+    font-size: 25px;
+    font-weight: bold;
+    color: #ff00cc;
+}
+#nickname a{
+
+    color: #ff00cc;
+
+}
+#left_nav{
+
+    width: 106px;
+    background-color: #a67c52;
+
+}
+#left_nav li{
+
+    list-style-type: none;
+    width: 106px;
+    margin: 10px 0;
+
+}
+#left_nav img{
+    border: 0;
+    float: left;
+
+}
+#left_nav a{
+
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+#content_center{
+
+    background-color: #fdfbf6;
+    float: left;
+    width: 460px;
+    min-height: 530px;
+    height: auto !important;
+    height: 530px;
+    overflow-y: visible;
+    overflow-x: hidden;
+
+}
+#feed_textarea{
+
+    border: 0 none;
+    font-size: 14px;
+    height: 70px;
+    line-height: 18px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 430px;
+    resize: vertical;
+    min-height: 70px;
+}
+#input_text{
+
+    width:430px;
+    padding: 6px 15px;
+    background-color: #c69c6d;
+}
+#feed_menu a{
+
+    text-decoration: none;
+    color:#c69c6d;
+    font-size: 18px;
+    font-weight: bold;
+}
+#feed_menu{
+
+    height:20px;
+    border-bottom: 1px solid #c69c6d;
+    margin: 10px;
+    color:#c69c6d;
+}
+
+.item_nickname{
+
+    font-size:14px;
+    color:#6a9a48;
+}
+.item_time{
+
+    font-size: 10px;
+    color:#df824f;
+}
+
+.item_nickname,.item_time{
+
+    float: right;
+}
+
+.feed_item{
+
+    padding: 0 50px;
+    margin-top: 30px;
+}
+
+.feed_item_top{
+
+    color: #47443a;
+    font-size: 18px;
+    height: 20px;
+    line-height: 20px;
+}
+.feed_item_content{
+
+    color:#3e8641;
+}
+
+.feed_item_share{
+
+    text-align: right;
+    border-bottom: 1px dotted #cbcac8;
+
+}
+.feed_item_share a{
+
+    color:#e0c8ac;
+    text-decoration: none;
+    font-weight: bold;
+}
+#more_feeds{
+
+    margin:  10px 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #e4c8e2;
+    font-size: 20px;
+    font-weight: bold;
+}
+#content_right{
+
+    float: left;
+    width: 224px;
+    overflow: hidden;
+    padding: 0 20px 0 10px;
+
+}
+
+#visitor{
+
+    background-color: #c69c6d;
+    width: 210px;
+    padding: 0 7px;
+}
+#visit_title{
+
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    color: #003333;
+
+}
+#visit_num{
+
+    font-size: 12px;
+
+}
+.recommend{
+
+    background-color: #c69c6d;
+    width: 224px;
+    height: 200px;
+
+}
+.rec_left{
+
+    width:74px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    float: left;
+
+}
+.rec_title{
+
+    height:60px;
+    line-height: 60px;
+    text-align: center;
+
+}
+.rec_up{
+
+    height: 40px;
+
+}
+.rec_down{
+
+    padding-top:20px;
+}
+
+.rec_right{
+
+    float: left;
+}
+.rec_content{
+
+    height: 91px;
+    width: 145px;
+    margin-top: 6px;
+
+}
+.rec_content_top{
+
+    background-color: #acacac;
+}
+.rec_content_bottom{
+
+    background-color: #8781be;
+
+}
+#rec_friend{
+
+    background: url("http://@{base_url}/tpl/art/friend_bg.png") no-repeat 12px 11px;
+    color:black;
+
+}
+#rec_novel{
+
+    background: url("http://@{base_url}/tpl/art/rec_bg.png") no-repeat 0px 11px;
+    color:white;
+
+}
+#footer{
+
+    margin-top: 60px;
+
+}
+#footer_link{
+
+    margin-top: -60px;
+
+}
+#footer_top{
+
+    text-align: center;
+    height:150px;
+    background-color: #54472a;
+}
+#round_bottom{
+
+    height: 10px;
+    width: 460px;
+    background: url("http://@{base_url}/tpl/art/round_bottom.png") no-repeat top left;
+    margin: 0 auto;
+}
+#footer_bottom{
+
+    height: 30px;
+    background-color: #3b321d;
+}
+
+/*---------个人中心-----------*/
+/*--- 状态发布-------*/
+
+#status{
+
+    width:520px;
+    padding:7px 15px;
+    background-color: #F0F5F8;
+    margin-bottom: 10px;
+
+}
+
+#status_action{
+
+    text-align: right;
+}
+
+#status_text{
+
+    width: 510px;
+
+}
+
+#status_text textarea{
+
+    resize: vertical;/*--只允许上下拉申--*/
+    box-shadow: 1px 1px 3px #CCCCCC inset;
+    border: 1px solid gray;
+    overflow-x: hidden;
+    width: 515px;
+    height: 60px;
+    min-height: 60px;
+
+}
+
+.num{
+
+    text-align: right;
+
+}
+
+.num span{
+
+    font-weight: bold;
+    font-size: 120%;
+
+}
+
+.comment_action{
+
+    text-align: right;
+}
+
+/*-------新鲜事-------*/
+
+.uc_center_content{
+
+   padding: 0 30px;
+
+}
+
+.status_avatar{
+
+    float: left;
+
+}
+
+.status_main{
+
+    margin-left: 10px;
+    width: 300px;
+    float: left;
+
+}
+
+.status_main p{
+
+    color:#808080;
+    margin-bottom: 10px;
+
+}
+
+.status_main_content{
+
+    margin-bottom: 20px;
+
+
+}
+
+#my_status{
+
+    margin: 20px 30px;
+
+}
+
+.status_item{
+
+    margin: 10px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted #D3D3D3;
+
+}
+
+.status_time{
+
+    font-size: 90%;
+    color: gray;
+    height: 30px;
+    line-height: 60px;
+
+}
+
+.status_comment{
+
+    resize: none;
+    height: 25px;
+    width: 300px;
+    border: 1px solid #d3d3d3;
+
+}
+
+.comment_avatar{
+
+    float:left;
+
+}
+
+.comment_main{
+
+    float: left;
+    width: 220px;
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 25px;
+
+}
+
+.comment_item{
+
+    padding: 5px 0;
+    border-top: 1px solid #dcdcdc;
+
+}
+
+.more{
+
+
+}
+.more a{
+
+    display: block;
+    margin:  10px 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #e4c8e2;
+    font-size: 20px;
+    font-weight: bold;
+    color: black !important;
+}
+
+.more_comment{
+
+    height: 50px;
+    line-height: 50px;
+    border-top: 1px solid #dcdcdc;
+
+}
+
+.status_item a:hover,.comment_item a:hover{
+
+    text-decoration: underline;
+
+}
+/*-----个人中心右边栏------*/
+#sider_rt{
+
+    margin-left:20px;
+
+}
+
+
+/*------消息模块--------*/
+.block_menu li,.block_menu a{
+
+    cursor:pointer;
+    text-decoration:none;
+    color:white;
+
+}
+
+.block_menu li{
+
+    display:block;
+    list-style-type:none;
+    border: 1px solid #999;
+    padding:2px 15px;
+    float:left;
+    margin:0 0 -1px 15px;
+    margin-bottom:-1px;
+    background-color:#C69C6D;
+
+}
+
+.block_menu ul{
+
+    clear:both;
+    float:left;
+    border-bottom:1px solid #999;
+    width:440px;
+    padding:0;
+    margin: 10px 10px;
+
+}
+
+
+.cur{
+
+    background-color: white !important;
+    border-bottom-color:white !important;
+
+}
+
+.cur a{
+
+    color: #C69C6D !important;
+
+}
+
+#notification_area{
+
+    margin-left: 40px;
+}
+
+.notification_item{
+
+    width: 480px;
+    margin: 10px 0;
+    height:70px;
+    line-height: 70px;
+    border-bottom: 1px dotted gray;
+
+}
+
+/*-------好友模块---------*/
+#friend_area{
+
+    padding: 10px 20px;
+
+}
+.friend_top_menu{
+
+    border-bottom: 1px solid gray;
+
+}
+
+.friend_item {
+
+
+    margin: 10px 0;
+    height:60px;
+    border-bottom: 1px dotted #D3D3D3;
+
+}
+
+.friend_nickname{
+
+
+
+}
+.friend_item img{
+
+    margin-right: 10px;
+}
+
+/* -- 回到顶部 --- */
+#back-to-top{
+
+    position:fixed;
+    bottom:10px;
+    right:20px;
+
+}
+
+#back-to-top{
+
+    height:50px;
+    width:50px;
+
+}
+
+.in_hover{
+
+    background:url("http://@{base_url}/back-top.png") no-repeat -50px top;
+
+}
+.out_hover{
+
+    background:url("http://@{base_url}/back-top.png") no-repeat left top;
+
+}
+
+/*---- 个人中心管理-----*/
+#uc_admin_center{
+
+    width:760px;
+    float: left;
+
+}
+
+.avatar_top{
+
+    border-bottom: 1px dotted gray;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+}
+
+/* -----缩略预览图------*/
+.preview_container{
+
+    margin-bottom: 20px;
+
+}
+
+#btn_saves{
+
+    margin-top: 10px;
+
+}
+
+#btn_saves input{
+
+    width:80px;
+}
+
+.admin_menu_top{
+
+    margin-bottom: 10px;
+
+}
+.profile_admin{
+
+}
+
+.profile_admin form{
+
+
+
+}
+
+#basic_profile_frm span{
+
+    display: inline-block;
+    font-weight: normal;
+    margin-right: 6px;
+    text-align: right;
+    vertical-align: top;
+    width: 100px
+
+}
+
+#absolute_top{
+
+    height:0;
+    width:100%;
+    top:0;
+    border-bottom:1px solid #999;
+    background-color: #EFEFEF;
+    overflow: hidden;
+
+}
+#tpl_list{
+
+    background-color: white;
+    height: 180px;
+
+}
+
+.ucenter_tpl{
+
+    height: 130px;
+    float: left;
+    padding: 10px;
+    margin:10px 0 10px 20px;
+    border: 1px solid white;
+}
+
+.ucenter_tpl_img{
+
+    width: 100px;
+    height: 100px;
+    border: 1px solid #999;
+
+}
+
+.ucenter_tpl_title{
+
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    text-align: center;
+    color: #000000;
+
+}
+
+#tpl_action{
+
+    text-align: right;
+    height: 25px;
+
+}
+
+/*----个人主页-----*/
+#user_mainpage{
+
+    margin: 0 50px;
+    background: #C69C6D url("http://@{base_url}/tpl/art/user_bg.jpg") repeat-y 150px 0;
+
+
+}
+#user_left{
+
+    float: left;
+    width: 150px;
+
+}
+
+.uc_lt_menu{
+
+    margin-top: 30px;
+    padding-bottom: 20px;
+
+}
+
+.uc_lt_menu li{
+
+    list-style-type: none;
+
+}
+.uc_lt_menu ul{
+
+    padding-left: 0px;
+
+}
+
+
+.uc_lt_menu a{
+
+    height: 16px;
+    line-height: 16px;
+    font-size: 14px;
+    display: block;
+    background-color: #C69C6D;
+    color:#603913;
+    padding: 5px 15px;
+}
+
+.uc_lt_menu img{
+
+    float: left;
+
+}
+.uc_lt_current a{
+
+    background-color: #A67C52;
+    color: white;
+}
+
+#user_center{
+
+    padding: 20px 0 0 30px;
+    width: 460px;
+    float: left;
+    min-height: 500px;
+    height: auto !important;
+    height: 500px;
+    overflow-y: visible;
+    overflow-x: hidden;
+
+
+}
+
+#user_center h2{
+
+    color: #444444;
+
+}
+
+#user_center a{
+
+    color:#603913;
+
+}
+
+#user_title{
+
+    margin-bottom: 40px;
+
+}
+
+.user_status_main{
+
+    width: 450px;
+    float: left;
+
+}
+
+.user_status_main p{
+
+    color:#808080;
+    margin-bottom: 10px;
+
+}
+
+.user_status_comment{
+
+    width: 450px !important;
+
+}
+
+#user_status{
+
+    padding-bottom: 30px;
+
+}
+
+#user_right{
+
+    width:200px;
+    float: left;
+    height: 200px;
+    padding: 20px 10px 0 30px;
+
+}
+
+#user_add_friend{
+
+    margin-bottom: 30px;
+
+}
+
+#user_add_friend a{
+
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    background-color: #9CDE27;
+    border: 1px solid #53CD00;
+    padding: 2px 5px;
+    color: white;
+
+}
+
+#user_add_friend a:hover{
+
+    background-color: #53CD00;
+
+}
+
+#user_liked_novel,#user_friend_block,#user_visitors{
+
+    height: 100px;
+
+}
+
+.user_profile_item{
+
+    margin-bottom: 20px;
+
+}
+
+.user_profile_title{
+
+     height: 20px;
+     line-height: 20px;
+     background-color: #F3F3F3;
+     padding: 5px 20px;
+     margin-bottom: 20px;
+
+}
+
+.user_profile_title span{
+
+    font-size: 17px;
+    font-weight: bold;
+    margin-right: 20px;
+
+}
+
+.user_profile_title a:hover{
+
+    text-decoration: underline;
+
+}
+#user_profile_block h4{
+
+    border-bottom: 1px dotted #D3D3D3;
+    margin-bottom: 10px;
+
+}
+
+.user_link a:hover{
+
+    background-color: #cb935d;
+
+}
+
+#settings_main{
+
+    width: 880px;
+    margin: 0 50px;
+    background: #C69C6D url("http://@{base_url}/tpl/art/user_bg.jpg") repeat-y 150px 0;
+
+
+}
+
+#settings_left{
+
+    width: 150px;
+    float: left;
+    padding-bottom: 40px;
+}
+
+#settings_center{
+
+    padding: 10px 20px;
+    width: 690px;
+    float: left;
+    min-height: 500px;
+    height: auto !important;
+    height: 500px;
+    overflow-y: visible;
+    overflow-x: hidden;
+
+
+}
+
+#settings_left h3{
+
+    font-size: 14px;
+    height: 15px;
+    line-height: 15px;
+    padding: 6px 15px;
+
+}
+
+#settings_left dl{
+
+
+
+}
+
+#settings_left a{
+
+    color:#603913;
+
+}
+#settings_left dt a{
+
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    padding: 5px 15px;
+    font-size: 14px;
+    overflow: hidden;
+
+}
+
+#settings_left dd{
+
+    font-size: 12px;
+    margin-bottom: 2px;
+
+}
+
+#settings_left dd a{
+
+    display: block;
+    height: 14px;
+    overflow: hidden;
+    padding: 6px 15px 6px 33px;
+
+}
+
+#settings_left dd a:hover,#settings_left dt a:hover{
+
+    background-color: #a6723f;
+}
+
+.border{
+
+    background: url("http://@{base_url}/tpl/art/left_nav_border.png") left bottom no-repeat;
+    padding-bottom: 15px;
+    margin-bottom: 12px;
+
+}
+
+.dt_current{
+
+    background-color: #A67C52;
+    color: white;
+
+}
+
+.dd_current{
+
+    background-color: #CB935D;
+    color: #54472A !important;
+
+}
+
+#user_footer{
+
+    width:880px;
+    margin: 0 auto;
+
+
+}
+
+#user_footer_left{
+
+    width: 150px;
+    float: left;
+    background-color: #C69C6D;
+
+}
+
+#user_footer_center{
+
+    width: 730px;
+    float: left;
+    background-color: #FCFBF6;
+}

@@ -27,19 +27,20 @@
 </div>
 <div id="absolute_top">
     <div id="tpl_action">
-        <a href="javascript:void(0);" id="cancel_dec"><img src="<?php echo base_url('static/img/close_dec.png');?>" width="20" height="20"/> </a>
+        <a href="javascript:void(0);" id="cancel_dec"><img src="<?php echo base_url('static/img/tpl/close_decoration.png');?>" width="20" height="20"/> </a>
     </div>
     <div id="tpl_list">
-        <div class="ucenter_tpl">
-            <div class="ucenter_tpl_img">
-                <a href="javascript:void(0);" class="tpl_select">
+        <a href="javascript:void(0);" class="ucenter_tpl">
+            <div>
+                <div class="ucenter_tpl_img">
                     <img src="<?php echo base_url('static/img/tpl/tpl_art.png');?>" width="100" height="100"/>
-                </a>
+
+                </div>
+                <div class="ucenter_tpl_title">
+                    文艺青年
+                </div>
             </div>
-            <div class="ucenter_tpl_title">
-                文艺青年
-            </div>
-        </div>
+        </a>
         <div class="clear"></div>
     </div>
 </div>

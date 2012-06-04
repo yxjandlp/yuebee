@@ -38,7 +38,7 @@
                     <ul>
                         <li id="profile_action" class=""><a href="<?php echo site_url('ucenter/admin/profile')?>">个人资料</a></li>
                         <li id="avatar_action" class=""><a href="<?php echo site_url('ucenter/admin/avatar');?>">更换头像</a></li>
-                        <li id="favorite_action" class=""><a href="">个人收藏</a></li>
+                        <li id="favorite_action" class=""><a href="">修改密码</a></li>
                     </ul>
                     <script type="text/javascript">
                         <!--

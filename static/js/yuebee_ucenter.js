@@ -150,7 +150,7 @@ $(document).ready(function(){
      */
     $('#decoration_link').bind('click',function(){
 
-        $("#absolute_top").animate( { height: '200px'}, { duration: "slow" }).show();
+        $("#absolute_top").animate( { height: '220px'}, { duration: "slow" }).show();
         $(this).fadeOut("slow");
 
     });
@@ -176,6 +176,34 @@ $(document).ready(function(){
         function(){
 
             $(this).attr("src",site_url + "static/img/close.png");
+
+        }
+
+    );
+
+    /*
+     * 模板悬浮事件
+     */
+    $('.ucenter_tpl').hover(
+
+        function(){
+
+            $(this).css({
+
+                "border"           : "1px solid #999",
+                "background-color" : "#EDEEF1"
+
+            });
+
+        },
+        function(){
+
+            $(this).css({
+
+                "border"           : "1px solid white",
+                "background-color" : "#fff"
+
+            });
 
         }
 
@@ -407,7 +435,7 @@ $(document).ready(function(){
 
         function(){
 
-            $(this).css('background-color','white');
+            $(this).css('background-color','');
             var item_index = $('.comment_item').index(this);
             $('.reply').eq(item_index).css('display','none');
 
@@ -594,17 +622,13 @@ $(document).ready(function(){
 
                     function(){
 
-                        $(this).css('background-color','white');
+                        $(this).css('background-color','');
                         var item_index = $('.comment_item').index(this);
                         $('.reply').eq(item_index).css('display','none');
 
                     }
 
                 );
-
-
-
-
 
 
             }
@@ -670,7 +694,7 @@ $(document).ready(function(){
 
                     function(){
 
-                        $(this).css('background-color','white');
+                        $(this).css('background-color','');
                         var item_index = $('.comment_item').index(this);
                         $('.reply').eq(item_index).css('display','none');
 
@@ -762,7 +786,7 @@ $(document).ready(function(){
         $('.comment_container').eq(index).html('');//清除之前的回复
         $('.comment_container').eq(index).show();//显示回复
 
-        $.ajax({//异步添加好友
+        $.ajax({//异步获取回复内容
 
             "type" : "POST",
             "url" : to_url,
@@ -798,7 +822,7 @@ $(document).ready(function(){
 
                         function(){
 
-                            $(this).css('background-color','white');
+                            $(this).css('background-color','');
                             var item_index = $('.comment_item').index(this);
                             $('.reply').eq(item_index).css('display','none');
 
@@ -956,7 +980,7 @@ $(document).ready(function(){
     $('#btn_save_region').bind('click',function(){
 
         var data = 'left='+$("#img_left").val()+'&top='+$("#img_top").val()+'&width='+$("#img_width").val()+'&height='+$("#img_height").val();
-        var to_url = site_url + 'ucenter/admin/save_avatar';
+        var to_url = site_url + 'accounts/settings/save_avatar';
 
         $.ajax({
 

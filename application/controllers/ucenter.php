@@ -33,9 +33,12 @@ class Ucenter extends CI_Controller {
         $uid = intval($this->input->cookie('uid'));//取得用户uid
         $user_info = $this->user->get_info_uid($uid);//取得用户信息
 
+        $tpl_name = "art";
+
         $data = array();
         $data['title'] = "yuebee | 个人中心";
         $data['current_app'] = "news";//新鲜事
+        $data['tpl_name'] = "art";//模板名
 
         $data['user_info'] = $user_info;
         $data['profile_info'] = $this->profile->get_profile_id($uid);
@@ -86,14 +89,18 @@ class Ucenter extends CI_Controller {
 
         $data['feeds'] = $feeds;
 
-        $this->load->view('users/common/left',$data);
+/*        $this->load->view('users/common/left',$data);
 
         $this->load->view('users/user_ucenter_view',$data);//新鲜事界面
 
         $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);
+        $this->load->view('common/footer',$data);*/
 
-
+        $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/ucenter_index_view",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_right",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_footer",$data);
 
     }
 
@@ -163,6 +170,8 @@ class Ucenter extends CI_Controller {
         $notification_type = array('system','friend','comment');
         $checked = 0;//未读消息
 
+        $tpl_name = "art";//模板名
+
         if( ! in_array($type,$notification_type) ){//过滤type的值
 
             $type = 'system';
@@ -172,6 +181,7 @@ class Ucenter extends CI_Controller {
         $data = array();
         $data['title'] = "yuebee | 消息";
         $data['current_app'] = "notification";
+        $data['tpl_name'] = $tpl_name;
 
         $data['profile_info'] = $this->profile->get_profile_id($uid);//详细资料
         $data['user_info'] = $this->user->get_info_uid($uid);//用户信息
@@ -188,12 +198,19 @@ class Ucenter extends CI_Controller {
 
         $this->notification->set_checked_type($uid,$type_id);//设置该类型的消息为已读
 
-        $this->load->view('users/common/left',$data);
+/*        $this->load->view('users/common/left',$data);
 
         $this->load->view('users/user_notification_view',$data);
 
         $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);;
+        $this->load->view('common/footer',$data);;*/
+
+        $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/ucenter_notification_view",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_right",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_footer",$data);
+
 
     }
 
@@ -205,10 +222,12 @@ class Ucenter extends CI_Controller {
 
         $uid = intval($this->input->cookie('uid'));//取得用户uid
         $user_info = $this->user->get_info_uid($uid);//取得用户信息
+        $tpl_name = "art";//模板名
 
         $data = array();
         $data['title'] = "yuebee | 状态";
         $data['current_app'] = "status";//新鲜事
+        $data['tpl_name'] = $tpl_name;
 
         $data['user_info'] = $user_info;
         $data['profile_info'] = $this->profile->get_profile_id($uid);
@@ -237,10 +256,17 @@ class Ucenter extends CI_Controller {
 
 
 
-        $this->load->view('users/common/left',$data);
+/*        $this->load->view('users/common/left',$data);
         $this->load->view('users/user_status_view',$data);
         $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);;
+        $this->load->view('common/footer',$data);;*/
+
+        $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/ucenter_status_view",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_right",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_footer",$data);
+
 
 
     }
@@ -279,10 +305,12 @@ class Ucenter extends CI_Controller {
     public function friend(){
 
         $uid = intval($this->input->cookie('uid'));//取得用户uid
+        $tpl_name = "art";
 
         $data = array();
         $data['title'] = "yuebee | 好友";
         $data['current_app'] = "friend";//好友请求
+        $data['tpl_name'] = $tpl_name;
 
         $data['profile_info'] = $this->profile->get_profile_id($uid);
         $data['user_info'] = $this->user->get_info_uid($uid);
@@ -294,10 +322,16 @@ class Ucenter extends CI_Controller {
         $data['friends'] = $this->friend->get_friends($uid);
 
         //        $this->load->view('common/header',$data);
-        $this->load->view('users/common/left',$data);
+/*        $this->load->view('users/common/left',$data);
         $this->load->view('users/user_friend_view',$data);
         $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);
+        $this->load->view('common/footer',$data);*/
+
+        $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/ucenter_friend_view",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_right",$data);
+        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_footer");
 
     }
 
@@ -427,6 +461,10 @@ class Ucenter extends CI_Controller {
 
             }
 
+            if( date('Y-m-d',time()) == date('Y-m-d',$feed->create_time) )
+                $feed->create_time = date('今天 H:i:s',$feed->create_time);
+            else
+                $feed->create_time = date('Y-m-d H:i:s',$feed->create_time);
 
             $feeds[] = array(
 
