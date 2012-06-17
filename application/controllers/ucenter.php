@@ -18,7 +18,6 @@ class Ucenter extends CI_Controller {
 
         $this->load->model('User_model','user');
         $this->load->model('User_profile_model','profile');
- //       $this->load->model('Friend_request_model','request');
         $this->load->model('User_notification_model','notification');
         $this->load->model('User_feed_model','feed');
 
@@ -88,13 +87,6 @@ class Ucenter extends CI_Controller {
         }
 
         $data['feeds'] = $feeds;
-
-/*        $this->load->view('users/common/left',$data);
-
-        $this->load->view('users/user_ucenter_view',$data);//新鲜事界面
-
-        $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);*/
 
         $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
         $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
@@ -198,13 +190,6 @@ class Ucenter extends CI_Controller {
 
         $this->notification->set_checked_type($uid,$type_id);//设置该类型的消息为已读
 
-/*        $this->load->view('users/common/left',$data);
-
-        $this->load->view('users/user_notification_view',$data);
-
-        $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);;*/
-
         $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
         $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
         $this->load->view("users/tpl/".$tpl_name."/ucenter/ucenter_notification_view",$data);
@@ -245,6 +230,7 @@ class Ucenter extends CI_Controller {
             $this->load->model('User_comment_model','comment');
             $data['comments'] = $this->comment->get_comments($feed_id);
 
+            $data['status_title'] = "状态回复";
 
 
         }else{
@@ -252,14 +238,9 @@ class Ucenter extends CI_Controller {
             $data['statuses'] = $this->feed->get_feed($uid,1);//获取我的状态
             $data['type'] = '';
 
+            $data['status_title'] = "与我相关";
+
         }
-
-
-
-/*        $this->load->view('users/common/left',$data);
-        $this->load->view('users/user_status_view',$data);
-        $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);;*/
 
         $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
         $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
@@ -268,70 +249,6 @@ class Ucenter extends CI_Controller {
         $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_footer",$data);
 
 
-
-    }
-
-    /*
-     * 同意添加好友请求
-     */
-    public function accept_friend_request(){
-
-        $notification_id = intval($this->input->post('id'));//消息的id
-        $notification_info = $this->notification->get_notification_id($notification_id);//消息的所有信息
-
-        $uid = intval($this->input->cookie('uid'));
-        $friend_info = $this->user->get_info_uid($notification_info->from_uid);
-        $user_info = $this->user->get_info_uid($uid);
-
-        $this->load->model('User_friend_model','friend');
-        $this->friend->add_friend($uid,$friend_info->uid,$friend_info->nickname);
-        $this->friend->add_friend($friend_info->uid,$uid,$user_info->nickname);//互相添加对方为好友
-
-        $this->notification->set_checked($notification_id);//设为已处理
-
-        //添加feed,type为friend
-        $message = "和<a href=''>".$friend_info->nickname."</a>成为了好友";
-        $note = "<a href=''>".$user_info->nickname."</a>已接受您的好友请求";
-
-        $this->feed->add_feed($uid,$user_info->nickname,$message,2);//添加到新鲜事中
-        $this->notification->add_notification($notification_info->from_uid,$uid,$user_info->nickname,1,$note);//向请求方已接受请求提醒
-
-
-    }
-
-    /*
-     * 显示好友
-     */
-    public function friend(){
-
-        $uid = intval($this->input->cookie('uid'));//取得用户uid
-        $tpl_name = "art";
-
-        $data = array();
-        $data['title'] = "yuebee | 好友";
-        $data['current_app'] = "friend";//好友请求
-        $data['tpl_name'] = $tpl_name;
-
-        $data['profile_info'] = $this->profile->get_profile_id($uid);
-        $data['user_info'] = $this->user->get_info_uid($uid);
-        $data['request_num'] = $this->notification->get_num_by_type($uid,0,2);//获得好友请求的条数
-
-        $data['notification_num'] = $this->notification->get_notification_num($uid,0);//取得所有消息数
-
-        $this->load->model('User_friend_model','friend');
-        $data['friends'] = $this->friend->get_friends($uid);
-
-        //        $this->load->view('common/header',$data);
-/*        $this->load->view('users/common/left',$data);
-        $this->load->view('users/user_friend_view',$data);
-        $this->load->view('users/common/right',$data);
-        $this->load->view('common/footer',$data);*/
-
-        $this->load->view("users/tpl/".$tpl_name."/common/header",$data);
-        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_left",$data);
-        $this->load->view("users/tpl/".$tpl_name."/ucenter/ucenter_friend_view",$data);
-        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_right",$data);
-        $this->load->view("users/tpl/".$tpl_name."/ucenter/common/ucenter_common_footer");
 
     }
 
@@ -359,12 +276,11 @@ class Ucenter extends CI_Controller {
 
                 $to_uid = $feed_info->uid;
 
-                //$to_uid =  $this->feed->get_author_id($feed_id);//根据feed_id
                 $from_uid = $uid;
                 $from_nickname = $user_info->nickname;
                 $type = 3;//留言回复信息
                 // $note ="haha";
-                $note = "您的状态:<a href='".site_url('ucenter/status/reply/'.$feed_id)."'>".mb_substr($feed_info->message,0,4).(mb_strlen($feed_info->message) > 4?"。。。":"")."</a>有了新评论";
+                $note = "<a href='".site_url('users/'.$from_uid.'/'.$from_nickname)."'>{$from_nickname}</a> 评论了您的状态:<a href='".site_url('ucenter/status/reply/'.$feed_id)."'>".mb_substr($feed_info->message,0,4).(mb_strlen($feed_info->message) > 4?"。。。":"")."</a>";
 
                 $from_id = $feed_id;
 

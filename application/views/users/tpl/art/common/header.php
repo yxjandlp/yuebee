@@ -30,6 +30,30 @@
     <script type="text/javascript" src="<?php echo base_url('static/js/yuebee_ucenter.js');?>"></script>
 </head>
 <body>
+<div id="decoration_link">
+    <a href="javascript:void(0);" title="模板设置">
+        <img src="<?php echo base_url('static/img/close.png');?>" />
+    </a>
+</div>
+<div id="absolute_top">
+    <div id="tpl_action">
+        <a href="javascript:void(0);" id="cancel_dec"><img src="<?php echo base_url('static/img/tpl/close_decoration.png');?>" width="20" height="20"/> </a>
+    </div>
+    <div id="tpl_list">
+        <a href="javascript:void(0);" class="ucenter_tpl">
+            <div>
+                <div class="ucenter_tpl_img">
+                    <img src="<?php echo base_url('static/img/tpl/tpl_art.png');?>" width="100" height="100"/>
+
+                </div>
+                <div class="ucenter_tpl_title">
+                    文艺青年
+                </div>
+            </div>
+        </a>
+        <div class="clear"></div>
+    </div>
+</div>
 <div id="main">
     <div id="top">
         <div class="top_round_menu">

@@ -37,6 +37,24 @@ class Login extends CI_Controller {
         $data['email'] = "";
         $data['password'] = "";
 
+        $uid = $this->input->cookie('uid');//是否登录
+
+        $is_logined = FALSE;
+        if( $uid !== FALSE ){
+
+            $is_logined = TRUE;
+            $uid = intval($uid);
+
+            $this->load->model('User_model','user');
+            $nickname = $this->user->get_nickname($uid);
+
+            $data['nickname'] = $nickname;//昵称
+
+
+        }
+
+        $data['is_logined'] = $is_logined;
+
 
         //验证提交表单
         if( $_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['login']) ){//是否提交
@@ -44,9 +62,7 @@ class Login extends CI_Controller {
             $this->load->model("User_model","user");
 
             $email = $this->input->post('login_email');
-            $password = $this->input->post('login_pwd');
-            $nickname = $this->user->get_nickname_email($email);//昵称
-            $id = $this->user->get_uid_email($email);
+            $password = $this->input->post('login_pwd');            $id = $this->user->get_uid_email($email);
 
             $this->referer_url = isset($_POST['referer_url']) ? $_POST['referer_url'] : site_url('');
 
@@ -60,16 +76,7 @@ class Login extends CI_Controller {
 
                 );
 
-                $config_nickname = array(
-
-                    'name'  => 'nickname',
-                    'value' => $nickname,
-                    'expire'=> $this->expiration
-
-                );
-
-                $this->input->set_cookie($config_id);
-                $this->input->set_cookie($config_nickname);
+                $this->input->set_cookie($config_id);//cookie储存登录用户uid
 
                 redirect(site_url('accounts/login/success'));//转入登录成功页面
 
@@ -98,6 +105,24 @@ class Login extends CI_Controller {
         $data = array();
         $data['title'] = "yuebee | 登录成功";
         $data['referer_url'] = $this->referer_url;
+
+        $uid = $this->input->cookie('uid');//是否登录
+
+        $is_logined = FALSE;
+        if( $uid !== FALSE ){
+
+            $is_logined = TRUE;
+            $uid = intval($uid);
+
+            $this->load->model('User_model','user');
+            $nickname = $this->user->get_nickname($uid);
+
+            $data['nickname'] = $nickname;//昵称
+
+
+        }
+
+        $data['is_logined'] = $is_logined;
 
         $this->load->view('common/header',$data);
         $this->load->view('accounts/login_success_view',$data);

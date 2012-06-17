@@ -31,6 +31,24 @@ class Register extends CI_Controller {
         $data = array();
         $data['title'] = 'yuebee ｜注册';
 
+        $uid = $this->input->cookie('uid');//是否登录
+
+        $is_logined = FALSE;
+        if( $uid !== FALSE ){
+
+            $is_logined = TRUE;
+            $uid = intval($uid);
+
+            $this->load->model('User_model','user');
+            $nickname = $this->user->get_nickname($uid);
+
+            $data['nickname'] = $nickname;//昵称
+
+
+        }
+
+        $data['is_logined'] = $is_logined;
+
         $config = array(
             array(
                 'field'   => 'email',
@@ -75,7 +93,7 @@ class Register extends CI_Controller {
 
                 $email    = trim($this->input->post('email'));
                 $nickname = trim($this->input->post('nickname'));
-                $password = sha1($this->input->post('password'));//密码用sha1加密
+                $password = $this->input->post('password');//密码
 
                 //$active_code = sha1(mt_rand(10000,99999).time().$email);//生成激活码
                 $this->load->helper('string');
@@ -183,7 +201,7 @@ class Register extends CI_Controller {
 
             $this->form_validation->set_message('nickname_check', '请输入昵称');
 
-            return false;
+            return FALSE;
         }else{
 
             $length = mb_strlen($nickname,'utf8');//取得实际位数，如 “我是lovelp" 为8位
@@ -192,19 +210,19 @@ class Register extends CI_Controller {
 
                 $this->form_validation->set_message('nickname_check', '昵称为1-16位的中英文、数字或_');
 
-                return false;
+                return FALSE;
 
             }else{
 
                 if( preg_match($nickname_pn,$nickname)){//区中英文、数字或_
 
-                    return true;
+                    return TRUE;
 
                 }else{
 
                     $this->form_validation->set_message('nickname_check', '昵称为1-16位的中英文、数字或_');
 
-                    return false;
+                    return TRUE;
 
                 }
 
@@ -324,6 +342,24 @@ class Register extends CI_Controller {
 
         $data = array();
         $data['title'] = "yuebee | 注册成功";
+
+        $uid = $this->input->cookie('uid');//是否登录
+
+        $is_logined = FALSE;
+        if( $uid !== FALSE ){
+
+            $is_logined = TRUE;
+            $uid = intval($uid);
+
+            $this->load->model('User_model','user');
+            $nickname = $this->user->get_nickname($uid);
+
+            $data['nickname'] = $nickname;//昵称
+
+
+        }
+
+        $data['is_logined'] = $is_logined;
 
         $this->load->view('common/header',$data);
         $this->load->view('accounts/register_success_view' ,$data);//显示成功界面

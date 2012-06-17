@@ -18,6 +18,20 @@ a:link, a:visited {
 
 }
 
+.error_msg,.focus{
+
+    color: red;
+
+}
+
+#decoration_link{
+
+    position: absolute;
+    top:0;
+    right: 0;
+
+}
+
 #main {
 
     font-family: Verdana, Geneva, sans-serif;
@@ -220,6 +234,24 @@ a:link, a:visited {
     padding: 6px 15px;
     background-color: #c69c6d;
 }
+
+#publish_status{
+
+    float: right;
+    padding: 3px 15px;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px outset gray;
+
+}
+
+#status_action{
+
+  display: none;
+
+}
+
+
 #feed_menu a{
 
     text-decoration: none;
@@ -424,11 +456,6 @@ a:link, a:visited {
     background-color: #F0F5F8;
     margin-bottom: 10px;
 
-}
-
-#status_action{
-
-    text-align: right;
 }
 
 #status_text{
@@ -645,16 +672,29 @@ a:link, a:visited {
 
 #notification_area{
 
-    margin-left: 40px;
+    padding: 0 20px;
+
+
 }
 
+.notification_item a:hover{
+
+    text-decoration: underline;
+
+}
 .notification_item{
 
-    width: 480px;
+    width: 420px;
     margin: 10px 0;
     height:70px;
-    line-height: 70px;
     border-bottom: 1px dotted gray;
+
+}
+
+.notification_item img{
+
+    float: left;
+    margin-right: 10px;
 
 }
 
@@ -909,6 +949,11 @@ a:link, a:visited {
 
 }
 
+#user_center a:hover{
+
+    text-decoration: underline;
+
+}
 #user_title{
 
     margin-bottom: 40px;
@@ -950,33 +995,82 @@ a:link, a:visited {
 
 }
 
-#user_add_friend{
+.follow_block{
 
     margin-bottom: 30px;
+    border-bottom: 1px dotted #D3D3D3;
+    padding: 10px 5px 20px;
 
 }
 
-#user_add_friend a{
+.follow a,.followed a{
 
-    height: 20px;
-    line-height: 20px;
     font-size: 14px;
     background-color: #9CDE27;
     border: 1px solid #53CD00;
-    padding: 2px 5px;
-    color: white;
+    padding: 4px 7px;
+    color: white !important;
+
 
 }
 
-#user_add_friend a:hover{
+
+.followed a:hover{
+
+    background: #DD4B39;
+    border-color: #8b0000;
+
+}
+
+.follow a:hover{
 
     background-color: #53CD00;
 
 }
 
-#user_liked_novel,#user_friend_block,#user_visitors{
+.follow_hover_text{
 
-    height: 100px;
+    display: none;
+
+}
+
+
+.user_right_block{
+
+    border-bottom: 1px dotted #D3D3D3;
+    padding: 20px 0 30px;
+
+}
+
+.right_block_title{
+
+    font-size: 18px;
+    font-weight: bold;
+    color: #603913;
+
+}
+
+.user_right_block p{
+
+    margin-bottom: 10px;
+
+}
+
+.right_profile_edit{
+
+    display: block;
+    font-size: 14px !important;
+    height: 16px;
+    line-height: 16px;
+    padding: 2px 5px;
+    color: gray;
+    width: 80px;
+
+}
+
+.user_right_block a:hover{
+
+    text-decoration: underline;
 
 }
 
@@ -1061,12 +1155,6 @@ a:link, a:visited {
 
 }
 
-#settings_left dl{
-
-
-
-}
-
 #settings_left a{
 
     color:#603913;
@@ -1148,3 +1236,4 @@ a:link, a:visited {
     float: left;
     background-color: #FCFBF6;
 }
+

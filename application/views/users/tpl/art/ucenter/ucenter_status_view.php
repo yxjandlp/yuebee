@@ -11,14 +11,14 @@
 ?>
 
 <div id="my_status">
-    <h3>我的状态：</h3>
+    <h3><?php echo $status_title;?>：</h3>
     <hr />
     <?php foreach( $statuses as $status ):?>
     <div class="status_item">
         <div class="status_avatar"><img src="<?php echo site_url('avatar/get/'.$status->uid.'/'.md5($status->nickname).'/50/'.rand());?>" alt="avatar" width="50" height="50" class="status_avatar"/></div>
         <div class="status_main">
             <div class="status_main_content">
-                <span class="status_author"><?php echo anchor(site_url('users/'.$status->nickname),$status->nickname)?></span> :
+                <span class="status_author"><?php echo anchor(site_url('users/'.$status->uid.'/'.$status->nickname),$status->nickname)?></span> :
                 <span class="status_message"><?php echo $status->message;?></span><br/>
             </div>
             <p>
@@ -37,7 +37,7 @@
                     <div class='comment_item'>
                         <div class='comment_avatar'> <img src='<?php echo site_url('avatar/get/'.$comment->author_id.'/'.md5($comment->author_nickname).'/30/'.rand());?>' height='30' width='30' /></div>
                         <div class='comment_main'>
-                            <a href='' class='reply_nickname'><?php echo $comment->author_nickname;?></a><?php echo $comment->comment;?>
+                            <a href='<?php echo site_url('users/'.$comment->author_id.'/'.$comment->author_nickname);?>' class='reply_nickname'><?php echo $comment->author_nickname;?></a><?php echo $comment->comment;?>
                         </div>
                         <p><span class='reply' style='float:right;display: none;'><a href='javascript:void(0);' name="<?php echo $status->fid;?>">回复</a></span></p>
                         <div class='clear'></div>

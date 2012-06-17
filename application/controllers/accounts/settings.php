@@ -39,10 +39,58 @@ class Settings extends CI_Controller{
 
         $data['user_info'] = $user_info;
 
-        $this->load->view('users/tpl/'.$tpl_name.'/common/header',$data);
-        $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
-        $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_index_view',$data);
-        $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
+        $this->load->model('Common_district_model','district');
+        $data['provinces'] = $this->district->get_province();//获取地区信息
+
+        $data['year'] = intval(date('Y')) - 5;
+
+        $config = array(
+            array(
+                'field'   => 'profile_nickname',
+                'label'   => '昵称',
+                'rules'   => 'callback_profile_nickname_check'
+            )
+        );
+
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($config);
+
+        if ( $this->form_validation->run() == false ){
+
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_header',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_index_view',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
+
+
+        }else{
+
+            $profile = array(
+
+                "uid" => $uid,
+                "birth_year" => $this->input->post('birth_year'),
+                "bitth_month" => $this->input->post('birth_month'),
+                "birth_day" => $this->input->post('birth_day'),
+                "gender" => $this->input->post('gender'),
+                "real_name" => $this->input->post('real_name'),
+                "hometown_1" => $this->input->post('hometown_1'),
+                "hometown_2" => $this->input->post('hometown_2'),
+                "settle_1" => $this->input->post('settle_2'),
+                "self_desc" => $this->input->post('self_desc')
+
+            );
+
+            $this->load->model('User_profile_model','profile');
+            $this->profile->update_profile($profile);//更新个人基本信息
+
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_header',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_password_success_view',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
+
+
+        }
 
     }
 
@@ -64,7 +112,7 @@ class Settings extends CI_Controller{
 
         $data['user_info'] = $user_info;
 
-        $this->load->view('users/tpl/'.$tpl_name.'/common/header',$data);
+        $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_header',$data);
         $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
         $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_edu_view',$data);
         $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
@@ -261,12 +309,197 @@ class Settings extends CI_Controller{
 
         $data['user_info'] = $user_info;
 
-        $this->load->view('users/tpl/'.$tpl_name.'/common/header',$data);
-        $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
-        $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_password_view',$data);
-        $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
+        $config = array(
+            array(
+                'field'   => 'current_pwd',
+                'label'   => '当前密码',
+                'rules'   => 'callback_current_pwd_check'
+            ),
+            array(
+                'field'=> 'new_pwd',
+                'label'=> '新密码',
+                'rules'   => 'required|min_length[6]'
+            ),
+            array(
+                'field'   => 'confirm_new_pwd',
+                'label'   => '确认密码',
+                'rules'   => 'required|matches[new_pwd]'
+            )
+
+        );
+
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($config);
+
+        if ( $this->form_validation->run() == false ){
+
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_header',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_password_view',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
 
 
+        }else{
+
+            $password = $this->input->post('new_pwd');
+
+            $this->user->update_pwd($uid,$password);
+
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_header',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_left',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/settings_password_success_view',$data);
+            $this->load->view('users/tpl/'.$tpl_name.'/settings/common/settings_common_footer',$data);
+
+        }
+
+    }
+
+    /*
+     * 判断密码是否正确
+     */
+    public function current_pwd_check($current_pwd){
+
+        if( $current_pwd == "" ){
+
+            $this->form_validation->set_message('current_pwd_check', '%s不能为空');
+            return FALSE;
+
+        }else{
+
+            $uid = intval($this->input->cookie('uid'));//取得用户uid
+            $is_match = $this->user->is_match_uid($uid,$current_pwd);
+
+            if( $is_match ){
+
+                return TRUE;
+
+            }else{
+
+                $this->form_validation->set_message('current_pwd_check', '%s输入错误');
+                return FALSE;
+
+            }
+
+
+        }
+
+
+    }
+
+    /*
+    * 级联获取地区信息
+    */
+    public function get_city(){
+
+        $province_id = intval($this->input->post('id'));
+
+        $this->load->model("Common_district_model",'district');
+        $cities = $this->district->get_city($province_id);
+
+        $city_json = array();
+
+        foreach( $cities as $city ){
+
+            $city_json[] = array(
+
+                "id"   => $city->id,
+                "name" => $city->name
+
+            );
+
+        }
+
+        echo json_encode($city_json);
+
+    }
+
+
+    /*
+     * 检测昵称是否已存在
+     */
+    public function nickname_good($nickname){
+
+        $uid = intval($this->input->cookie('uid'));//取得用户uid
+        $current_nickname = $this->user->get_nickname($uid);
+
+        if( $current_nickname == $nickname ){
+
+            return TRUE;
+
+        }
+
+        return !$this->user->nickname_exist($nickname);
+
+    }
+
+    /*
+     * 异步检测昵称是否存在
+     */
+    public function nickname_inst_check(){
+
+
+        $nickname = $this->input->post('nickname');
+
+        if( $this->nickname_good($nickname) ){
+
+            echo "0";
+
+        }else{
+
+            echo "1";
+
+        }
+
+    }
+
+    /*
+     * 表单检测
+     *
+     * 昵称
+     *
+     */
+    public function profile_nickname_check($nickname){
+
+        $nickname = trim($nickname);
+        $nickname_pn = "/^[0-9a-zA-Z\\x{4e00}-\\x{9fa5}_]*$/u";//昵称正则
+
+
+        if( $nickname == "" ){
+
+            $this->form_validation->set_message('profile_nickname_check', '请输入昵称');
+
+            return FALSE;
+
+
+        }else{
+
+            $length = mb_strlen($nickname,'utf8');//取得实际位数，如 “我是lovelp" 为8位
+
+            if( $length < 1 || $length > 16){
+
+                $this->form_validation->set_message('profile_nickname_check', '昵称为1-16位的中英文、数字或_');
+
+                return FALSE;
+
+            }else{
+
+                if( preg_match($nickname_pn,$nickname)){//区中英文、数字或_
+
+                    return TRUE;
+
+                }else{
+
+                    $this->form_validation->set_message('profile_nickname_check', '昵称为1-16位的中英文、数字或_');
+
+                    return TRUE;
+
+                }
+
+
+            }
+
+        }
 
     }
 

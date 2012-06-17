@@ -15,6 +15,7 @@ class User_profile_model extends CI_Model {
 
 
     public function __construct(){
+
         parent::__construct();
 
         $this->tb_name = $this->db->dbprefix('user_profile');
@@ -57,6 +58,16 @@ class User_profile_model extends CI_Model {
             return false;
 
         }
+
+
+    }
+
+    /*
+     * 更新用户基本资料
+     */
+    public function update_profile( array $profile ){
+
+        $sql = "UPDATE {$this->tb_name} ";
 
 
     }

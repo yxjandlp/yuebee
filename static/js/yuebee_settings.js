@@ -4,72 +4,66 @@
 var site_url = "http://localhost/test/yuebee/";
 
 /*
- * 获得textarea字数
+ * 判断密码强度
  */
-var getLength = (function(){
+function getPasswordStrength(password){
 
-    var trim = function(h) {
+    return 0
+        // if password bigger than 5 give 1 point
+        + +( password.length > 5 )
+        // if password has both lower and uppercase characters give 1 point
+        + +( /[a-z]/.test(password) && /[A-Z]/.test(password) )
+        // if password has at least one number and at least 1 other character give 1 point
+        + +( /\d/.test(password) && /\D/.test(password) )
+        // if password has a combination of other characters and special characters give 1 point
+        + +( /[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/.test(password) && /\w/.test(password) )
+        // if password bigger than 12 give another 1 point (thanks reddit)
+        + +( password.length > 12 )
+}
 
-        try {
+function showbirthday(){
 
-            return h.replace(/^\s+|\s+$/g, "")
+    var el = document.getElementById('birth_day');
+    var birthday = el.value;
 
-        } catch(j) {
+    el.length=0;
+    el.options.add(new Option('日', ''));
 
-            return h
+    for(var i=0;i<28;i++){
 
-        }
+        el.options.add(new Option(i+1, i+1));
+
     }
 
-    var byteLength = function(b) {
+    if(document.getElementById('birth_month').value!="2"){
 
-        if (typeof b == "undefined") {
+        el.options.add(new Option(29, 29));
+        el.options.add(new Option(30, 30));
 
-            return 0
-        }
+        switch(document.getElementById('birth_month').value){
 
-        var a = b.match(/[^\x00-\x80]/g);
-        return (b.length + (!a ? 0 : a.length))
+            case "1":
+            case "3":
+            case "5":
+            case "7":
+            case "8":
+            case "10":
+            case "12":{
 
-    };
+                el.options.add(new Option(31, 31));
 
-    return function(q, g) {
-
-        g = g || {};
-        g.max = g.max || 140;
-        g.min = g.min || 41;
-        g.surl = g.surl || 20;
-        var p = trim(q).length;
-
-        if (p > 0) {
-
-            var j = g.min,
-                s = g.max,
-                b = g.surl,
-                n = q;
-            var r = q.match(/(http|https):\/\/[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+([-A-Z0-9a-z\$\.\+\!\_\*\(\)\/\,\:;@&=\?~#%]*)*/gi) || [];
-            var h = 0;
-            for (var m = 0,
-                     p = r.length; m < p; m++) {
-                var o = byteLength(r[m]);
-                if (/^(http:\/\/t.cn)/.test(r[m])) {
-                    continue
-                } else {
-                    if (/^(http:\/\/)+(weibo.com|weibo.cn)/.test(r[m])) {
-                        h += o <= j ? o: (o <= s ? b: (o - s + b))
-                    } else {
-                        h += o <= s ? b: (o - s + b)
-                    }
-                }
-                n = n.replace(r[m], "")
             }
-            return Math.ceil((h + byteLength(n)) / 2)
-        } else {
-            return 0
         }
-    }
-})();
 
+    } else if(document.getElementById('birth_year').value!="") {
+
+        var nbirthyear=document.getElementById('birth_year').value;
+        if(nbirthyear%400==0 || (nbirthyear%4==0 && nbirthyear%100!=0)) el.options.add(new Option(29, 29));
+
+    }
+
+    el.value = birthday;
+}
 
 /*
  *  ------------------------
@@ -101,7 +95,6 @@ $(document).ready(function(){
         }
 
     });
-
 
     /*
      * 顶部模板展示区域
@@ -168,18 +161,52 @@ $(document).ready(function(){
     );
 
     /*
-     * 点击添加关注
+     * 状态发布
      */
-    $('.add_follow_link').live('click',function(){
+    $('#status_frm').submit(function(){
 
-        var follow_uid = $(this).attr('name'); //接受方id
-        var data = "follow_uid=" + follow_uid;
+        $('.success_tip').css('display','block');
+        $('.success_tip').html('正在发布状态......');
+
+        var content = $('#status_content').val();
+        var length = getLength(content);
+
+        if( length > 0 && length <= 140 ){
+
+            var to_url = site_url + "ucenter/publish_status";
+            data = "content=" + content;
+
+            $.ajax({
+
+                "type" : "POST",
+                "url" : to_url,
+                "data" : data,
+                "success" : function(data){
+
+                    $('.success_tip').html('状态发布成功！');
+                    $('#status_content').val('');
+
+                }
+
+            });
+
+        }else{
+
+            $('.success_tip').html('字数在1－140之间');
+
+        }
+
+        return false;
+
+    });
+    /*
+     * 点击添加好友
+     */
+    $('#user_add_follow a').bind('click',function(){
+
+        var to_id = $("#to_id").val(); //接受方id
+        var data = "to=" + to_id;
         var to_url = site_url + 'users/add_follow';
-
-        var item_index = $('.add_follow_link').index(this);
-        var block = $('.follow').eq(item_index);
-
-        block.html("处理中...");
 
         $.ajax({//异步发送关注信息
 
@@ -188,39 +215,8 @@ $(document).ready(function(){
             "data" : data,
             "success" : function(data){
 
-                block.attr('class','followed');
-
-                var show_text = "正在关注";
-                if( data == 1 ){
-
-                    show_text = "互相关注";
-
-                }
-                block.html(
-
-                    "<a href='javascript:void(0);' class='cancel_follow' name='" + follow_uid + "'>" +
-                    "<span class='follow_main_text'>" + show_text + "</span>" +
-                    "<span class='follow_hover_text'>取消关注</span></a>"
-
-                );
-
-                $('.cancel_follow').hover(
-
-                    function(){
-
-                        $(this).find('.follow_main_text').hide();
-                        $(this).find('.follow_hover_text').show();
-
-                    },
-                    function(){
-
-                        $(this).find('.follow_main_text').show();
-                        $(this).find('.follow_hover_text').hide();
-
-                    }
-
-
-                );
+                $('#user_add_follow a').text("已关注");
+                $('#user_add_follow a').unbind('click');
 
             }
 
@@ -229,122 +225,13 @@ $(document).ready(function(){
 
     });
 
-    /*
-     * 已关注的悬浮效果
-     *
-     * 悬浮后出现‘取消关注’字样
-     *
-     */
-    $('.cancel_follow').hover(
-
-        function(){
-
-            $(this).find('.follow_main_text').hide();
-            $(this).find('.follow_hover_text').show();
-
-        },
-        function(){
-
-            $(this).find('.follow_main_text').show();
-            $(this).find('.follow_hover_text').hide();
-
-        }
-
-
-    );
-
 
     /*
-     * 处理取消关注
+     * textarea状态发表字数统计
      */
-    $('.cancel_follow').live('click',function(){
+    $('#status_content').bind('keyup',function(){
 
-        var item_index = $('.add_follow_link').index(this);
-        var block = $('.followed').eq(item_index);
-
-        block.html("处理中...");
-
-        var follow_uid = $(this).attr('name');
-        var to_url = site_url + "users/cancel_follow";
-        var data = "follow_uid=" + follow_uid;
-
-        $.ajax({//异步取消关注
-
-            "type" : "POST",
-            "url" : to_url,
-            "data" : data,
-            "success" : function(data){
-
-                block.attr('class','follow');
-                block.html("<a href='javascript:void(0);' name='" + follow_uid + "' class='add_follow_link'><span><b>+</b> 加关注</span></a>");
-
-            }
-
-        });
-
-    });
-
-
-    /*
-     * 状态发布框的获得焦点事件
-     *
-     * 出现发布按钮
-     *
-     */
-    $('#feed_textarea').focus(function(){
-
-       $('#status_action').show();
-
-    });
-
-    $('#feed_textarea').blur(function(){
-
-       if( $(this).val() == "" ){
-
-           $('#status_action span').text('');
-           $('#status_action').hide();
-
-       }
-
-    });
-
-    /*
-     * 点击发布状态
-     */
-    $('#publish_status').bind('click',function(){
-
-        var content = $('#feed_textarea').val();
-        var length = getLength(content);//取得状态的字数
-        if( length < 1 || length >240 ){
-
-            $('#status_action span').addClass('error_msg');
-            $('#status_action span').text('字数须在1－240之间');
-
-
-        }else{
-
-            var to_url = site_url + "ucenter/publish_status";
-            var data = "content=" + content;
-
-            $.ajax({//异步发布状态
-
-                "type" : "POST",
-                "url" : to_url,
-                "data" : data,
-                "success" : function(data){
-
-                    $('#status_action span').removeClass('error');
-                    $('#status_action span').text('发布成功!');
-                    $('#feed_textarea').val('');
-
-                }
-
-            });
-
-
-        }
-
-
+        $('#status_num').text( 140 - getLength($('#status_content').val()));
 
     });
 
@@ -536,14 +423,6 @@ $(document).ready(function(){
 
         $('#more').text("正在加载好友动态");
 
-        $(window).unbind('scroll');
-
-        $(window).bind('scroll',function(){
-
-            back_to_top_icon();//回到顶部按钮
-
-        });
-
         $.ajax({//异步获取新鲜事
 
             "type" : "POST",
@@ -551,6 +430,23 @@ $(document).ready(function(){
             "data" : data,
             'dataType':'json',
             "success" : function(data){
+
+                counter++;
+
+                if( data.length < 5){//判断是否还有动态
+
+                    $('#more').text("没有更多动态了");
+                    $('#more').unbind('click');//取消点击事件
+                    $(window).unbind('scroll');
+                    $(window).bind('scroll',back_to_top_icon);
+
+                }else{
+
+                    offset += 5;
+                    $('#more').attr('name',offset);
+                    $('#more').text("查看更多动态");
+
+                }
 
                 var length = data.length;
 
@@ -573,7 +469,7 @@ $(document).ready(function(){
                         var add_content = "<span class='feed_id' name='" + data[i].feed_id + "' style='display: none'></span>" +
                             "</p>" +
                             "<div class='clear'></div>" +
-                            "<div class='comment_container'>";
+                            "<div class='comment_container'></div>";
 
                         if( data[i].reply_num >= 1 ){
 
@@ -610,7 +506,7 @@ $(document).ready(function(){
                                 "</div>" +
                                 "<p><span class='reply' style='float:right;display: none;'><a href='javascript:void(0);' name='" + data[i].feed_id + "'>回复</a></span></p>" +
                                 "<div class='clear'></div>" +
-                                "</div></div>";
+                                "</div>";
 
                             add_content += last_comment;
 
@@ -657,27 +553,6 @@ $(document).ready(function(){
 
                 );
 
-                counter++;
-
-                if( data.length < 5){//判断是否还有动态
-
-                    $('#more').text("没有更多动态了");
-                    $('#more').unbind('click');//取消点击事件
-
-                }else{
-
-                    offset += 5;
-                    $('#more').attr('name',offset);
-                    $('#more').text("查看更多动态");
-
-                    $(window).bind('scroll',function(){
-
-                        back_to_top_icon();//回到顶部按钮
-                        load_feed();//加载新鲜事
-
-                    });
-
-                }
 
             }
 
@@ -912,4 +787,320 @@ $(document).ready(function(){
     $('.unfold_comment a').toggle( fold,unfold );
 
 
+
+    /*
+     * 异步上传头像到服务器
+     */
+    $('#upload_avatar_form').ajaxForm({
+
+        dataType:'json',
+        success:function(data){
+
+            if( data.error ){
+
+                $('#upload_error').css('display','block');//显示上传错误信息
+
+            }else{
+
+                $('#upload_error').css('display','none');
+                $('#re_choose').css('display','block');
+
+                $('#upload_avatar_btn').hide();//隐藏上传按钮
+
+                $('#preview_1').attr("src",site_url + "static/uploads/" + data.file_name + "?r="+Math.random());//预览图1
+                $('#preview_1').css('display','block');
+
+                $('#preview_2').attr("src",site_url + "static/uploads/" + data.file_name + "?r="+Math.random());//预览图2
+                $('#preview_2').css('display','block');
+
+                $('#preview_3').attr("src",site_url + "static/uploads/" + data.file_name + "?r="+Math.random());//预览图3
+                $('#preview_3').css('display','block');
+
+                $('#avatar_tmp').attr("width",data.image_width);
+                $('#avatar_tmp').attr("height",data.image_height);
+                $('#avatar_tmp').attr("src",site_url + "static/uploads/" + data.file_name + "?r="+Math.random());//图片在服务器的临时地址
+                $('#avatar_tmp').css('display','block');
+                $('#avatar_tmp').ready(function(){
+
+                    $('#avatar_tmp').Jcrop({
+                        setSelect: [ 10, 10, 200, 200 ],
+                        onChange: update_preview,
+                        onSelect: update_preview,
+                        aspectRatio: 1
+                    },function(){
+                        // Use the API to get the real image size
+                        var bounds = this.getBounds();
+                        boundx = bounds[0];
+                        boundy = bounds[1];
+                        // Store the API in the jcrop_api variable
+                        jcrop_api = this;
+                    });
+
+                    $('#btn_saves').show();
+                });
+
+            }
+
+        }
+
+    });
+
+    $('#upload_avatar_form').ajaxStart(function(){//头像上传中
+
+        $('#upload_avatar_btn').val('正在上传，请稍后...');
+        $('#upload_avatar_btn').attr('disabled',true);
+
+    });
+
+    $("#upload_avatar_form").ajaxComplete(function(event,request, settings){
+
+        $('#upload_avatar_btn').val('上传');
+        $('#upload_avatar_btn').attr('disabled',false);
+
+    });
+
+
+    var jcrop_api, boundx, boundy;
+    /*
+     * 实时更新小预览图
+     */
+    function update_preview(c){
+
+        function preview(size,id){
+
+            var rx = size / c.w;
+            var ry = size / c.h;
+
+            $(id).css({
+
+                width: Math.round(rx * boundx) + 'px',
+                height: Math.round(ry * boundy) + 'px',
+                marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                marginTop: '-' + Math.round(ry * c.y) + 'px'
+
+            });
+
+        }
+
+        if (parseInt(c.w) > 0){
+
+            preview(150,"#preview_1");
+            preview(50,"#preview_2");
+            preview(30,"#preview_3");
+
+            $('#img_left').val(c.x);
+            $('#img_top').val(c.y);
+            $('#img_width').val(c.w);
+            $('#img_height').val(c.h);
+
+        }
+    }
+
+
+    /*
+     * 保存选中区域
+     */
+    $('#btn_save_region').bind('click',function(){
+
+        var data = 'left='+$("#img_left").val()+'&top='+$("#img_top").val()+'&width='+$("#img_width").val()+'&height='+$("#img_height").val();
+        var to_url = site_url + 'accounts/settings/save_avatar';
+
+        $.ajax({
+
+            "type" : "POST",
+            "url" : to_url,
+            "data" : data,
+            "success" : function(data){
+
+                alert("头像更新成功");
+                location.reload();
+
+            }
+
+        });
+
+    });
+
+
+    /*
+     * 取消保存头像
+     */
+    $('#btn_save_cancel').bind('click',function(){
+
+        location.reload();
+
+    });
+
+    /*
+     * 级联显示地区
+     */
+    $('#home_province').bind('change',show_city);
+
+    $('#live_province').bind('change',show_city);
+
+    function show_city(){
+
+        if( $(this).attr('class') == "home" ){
+
+            var select_city = $('#home_city');
+
+        }else{
+
+            var select_city = $('#live_city');
+
+        }
+
+
+        if( $(this).val() == "0" ){
+
+            select_city.empty();
+            select_city.css('display','none');
+
+        }else{
+
+            var to_url = site_url + "accounts/settings/get_city";
+            var data = "id=" + $(this).val();
+
+
+            $.ajax({
+
+                "type" : "POST",
+                "url" : to_url,
+                "data" : data,
+                "dataType" : "json",
+                "success" : function(data){
+
+                    select_city.css('display','');
+                    select_city.empty();//清空之前的选项
+
+                    select_city.append("<option value='0'>不限</option> ")
+
+                    var length = data.length;
+
+                    for(var i = 0;i < length;i++){
+
+                        select_city.append("<option value='" + data[i].id + "'>" + data[i].name  + "</option>")
+
+                    }
+
+
+                }
+
+            });
+
+        }
+
+    }
+
+    /*
+     * 即时判断密码强度
+     */
+    $('#new_pwd').bind( 'keyup' , function(){
+
+        $('#new_pwd_msg').removeClass('error_msg');
+
+        var pass = $(this).val();
+        var strength = getPasswordStrength(pass);
+        var text = new Array();
+        var show_text;
+
+        text[0] = "弱";//密码强度组
+        text[1] = "中";
+        text[2] = "强";
+        text[3] = "极强";
+
+        if( pass.length > 0 ){
+            if( strength == 0){
+
+                show_text = text[0];
+
+            }else if( strength == 1 ){
+
+                show_text = text[1];
+
+            }else if( 2 <= strength && strength <= 4 ){
+
+                show_text = text[2];
+
+            }
+            else if( strength == 5 ){
+
+                show_text = text[3];
+            }
+
+            $('#new_pwd_msg').text("密码强度:" + show_text);
+        }
+
+    });
+
+    /*
+     * 检查昵称有效性
+     *
+     * 1-16位的中英文、数字或_
+     *
+     */
+    $('#profile_nickname').blur(function(){
+
+        var nickname_error_msg = $('#nickname_error_msg');
+        var nickname_pn = /^[0-9a-zA-Z\u4e00-\u9fa5_]*$/;
+        nickname_error_msg.addClass('error_msg');
+
+
+        var nickname = $.trim($(this).val());
+        var length = nickname.length;
+
+        if( length == 0){//昵称为空
+
+            nickname_error_msg.text('请填写昵称');
+
+        }else{
+
+            if( ! ( length >= 1 && length <= 16 ) ){//昵称格式
+
+                nickname_error_msg.text('昵称为1-16个字符');
+
+            }else{
+
+                if( nickname_pn.exec( nickname )){
+
+                    var data = "nickname=" + nickname;//传输数据
+                    var to_url = site_url + "accounts/settings/nickname_inst_check" ;
+
+                    $.ajax({//异步传输email到服务器端验证
+                        "type" : "POST",
+                        "url" : to_url,
+                        "data" : data,
+                        "success" : function(data){
+
+                            if( data == "0"){
+
+                                nickname_error_msg.removeClass('error_msg');
+                                nickname_error_msg.text("昵称可以使用");
+
+                            }
+
+                            if( data == "1"){
+
+                                nickname_error_msg.text("昵称已被使用");
+
+                            }
+
+                        }
+
+                    });
+
+                }else{
+
+                    nickname_error_msg.text('昵称为1－16位的中英文、数字或_');
+
+                }
+
+            }
+        }
+
+    });
+
+
+
 });
+

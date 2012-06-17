@@ -35,31 +35,10 @@ class User_notification_model extends CI_Model {
 
         if( $to_uid == $from_uid) return;//如果评论者是作得本人，则跳过
 
-        if( $type == 'comment' ){//状态评论提醒
 
-            $sql = "SELECT * FROM {$this->tb_name} WHERE from_id=? AND type=?";
+        $sql = "INSERT INTO {$this->tb_name} (to_uid,from_uid,from_nickname,type,note,create_time,from_id) VALUES (?,?,?,?,?,?,?)";
 
-            $query = $this->db->query($sql,array($from_id,$type));
-
-            if( $query->num_rows() > 0 ){//状态评论提醒已存在，则更新该提醒为未读
-
-                $sql = "UPDATE {$this->tb_name} SET checked=? WHERE from_id=? AND type=?";
-                $this->db->query($sql,array(0,$from_id,$type));
-
-            }else{
-
-                $sql = "INSERT INTO {$this->tb_name} (to_uid,from_uid,from_nickname,type,note,create_time,from_id) VALUES (?,?,?,?,?,?,?)";
-                $this->db->query($sql,array($to_uid,$from_uid,$from_nickname,$type,$note,time(),$from_id));
-
-            }
-
-        }else{//好友请求和回复提醒
-
-            $sql = "INSERT INTO {$this->tb_name} (to_uid,from_uid,from_nickname,type,note,create_time,from_id) VALUES (?,?,?,?,?,?,?)";
-
-            $this->db->query($sql,array($to_uid,$from_uid,$from_nickname,$type,$note,time(),$from_id));
-
-        }
+        $this->db->query($sql,array($to_uid,$from_uid,$from_nickname,$type,$note,time(),$from_id));
 
     }
 

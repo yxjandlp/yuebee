@@ -12,7 +12,9 @@
 <div class="clear"></div>
 <div id="user_mainpage">
     <div id="user_left">
-        <img src="<?php echo site_url('avatar/get/'.$user_info->uid.'/'.md5($user_info->nickname).'/150/'.rand());?>" height="150" width="150" />
+        <a href="<?php echo site_url('accounts/settings/avatar');?>">
+            <img src="<?php echo site_url('avatar/get/'.$user_info->uid.'/'.md5($user_info->nickname).'/150/'.rand());?>" height="150" width="150" />
+        </a>
         <div class="uc_lt_menu">
             <ul>
                 <li id="news_link" class="user_link">
@@ -32,14 +34,16 @@
                         &nbsp;&nbsp;个人资料
                     </a>
                 </li>
-                <li id="friend_link" class="user_link">
-                    <a href="<?php echo site_url('friend/'.$user_info->uid.'/'.$user_info->nickname);?>">
+                <li id="fans_link" class="user_link">
+                    <a href="<?php echo site_url('fans/'.$user_info->uid.'/'.$user_info->nickname);?>">
                         <img src="<?php echo base_url('static/img/tpl/'.$tpl_name."/friend.png"); ?>"/>&nbsp;
-                        <?php if( $is_current ):?>
-                        我的好友
-                        <?php else:?>
-                        他的好友
-                        <?php endif;?>
+                        粉丝(<?php echo $fans_num;?>)
+                    </a>
+                </li>
+                <li id="follow_link" class="user_link">
+                    <a href="<?php echo site_url('follow/'.$user_info->uid.'/'.$user_info->nickname);?>">
+                        <img src="<?php echo base_url('static/img/tpl/'.$tpl_name."/follow.png"); ?>"/>&nbsp;
+                        关注(<?php echo $follow_num;?>)
                     </a>
                 </li>
                 <li id="novel_link" class="user_link">
@@ -67,10 +71,4 @@
             <h2><?php echo $user_info->nickname;?></h2>
 
         </div>
-        <div id="user_add_friend">
-            <a href="javascript:void(0);">
-            <span>
-               <b>+</b> 加为好友
-            </span>
-            </a>
-        </div>
+

@@ -14,14 +14,14 @@ class User_feed_model extends CI_Model {
 
 
     private $tb_name;
-    private $friend_tb_name;
+    private $follow_tb_name;
 
     public function __construct(){
 
         parent::__construct();
 
         $this->tb_name = $this->db->dbprefix('user_feed');
-        $this->friend_tb_name = $this->db->dbprefix('user_friend');
+        $this->follow_tb_name = $this->db->dbprefix('user_follow');
 
     }
 
@@ -62,7 +62,7 @@ class User_feed_model extends CI_Model {
 
         $uid = intval($uid);
 
-        $sql = "SELECT * FROM {$this->tb_name} WHERE uid= ? OR uid= ANY (SELECT fid FROM {$this->friend_tb_name} WHERE uid=?) ORDER BY create_time DESC";
+        $sql = "SELECT * FROM {$this->tb_name} WHERE uid= ? OR uid= ANY (SELECT fid FROM {$this->follow_tb_name} WHERE uid=?) ORDER BY create_time DESC";
 
         $query = $this->db->query($sql,array($uid,$uid));
 
@@ -80,7 +80,7 @@ class User_feed_model extends CI_Model {
         $offset = intval($offset);
         $num = intval($num);
 
-        $sql = "SELECT * FROM {$this->tb_name} WHERE uid= ? OR uid= ANY (SELECT fid FROM {$this->friend_tb_name} WHERE uid=?) ORDER BY create_time DESC  LIMIT ?,?";
+        $sql = "SELECT * FROM {$this->tb_name} WHERE uid= ? OR uid= ANY (SELECT fid FROM {$this->follow_tb_name} WHERE uid=?) ORDER BY create_time DESC  LIMIT ?,?";
 
         $query = $this->db->query($sql,array($uid,$uid,$offset,$num));
 

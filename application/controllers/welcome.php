@@ -17,6 +17,25 @@ class Welcome extends CI_Controller {
         $data = array();
         $data['title'] = "约笔";//传入的页面标题
 
+        $uid = $this->input->cookie('uid');//是否登录
+
+        $is_logined = FALSE;
+        if( $uid !== FALSE ){
+
+            $is_logined = TRUE;
+            $uid = intval($uid);
+
+            $this->load->model('User_model','user');
+            $nickname = $this->user->get_nickname($uid);
+
+            $data['nickname'] = $nickname;//昵称
+
+
+        }
+
+        $data['is_logined'] = $is_logined;
+
+
         $this->load->view('common/header',$data);
 		$this->load->view('welcome_view',$data);
         $this->load->view('common/footer',$data);

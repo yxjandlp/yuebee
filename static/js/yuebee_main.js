@@ -2,7 +2,6 @@
  * 一些全局变量
  */
 var site_url = "http://localhost/test/yuebee/";
-var avatar_path = site_url + 'static/img/avatar/default.jpg';
 
 
 /*

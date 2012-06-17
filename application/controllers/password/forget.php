@@ -188,8 +188,8 @@ class Forget extends CI_Controller {
 
         }else {
 
-            $email = $this->input->cookie('safe_email');//取得需要更改的帐记
-            $password = sha1($this->input->post('password'));//加密码后的密码
+            $email = $this->input->cookie('safe_email');//取得需要更改的帐户
+            $password = $this->input->post('password');//密码
 
             $this->load->model('User_model',"user");
             $this->user->update_pwd($email,$password);//设置新密码

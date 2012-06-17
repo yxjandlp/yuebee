@@ -29,7 +29,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo base_url('static/css/jquery.Jcrop.css');?>">
     <script type="text/javascript" src="<?php echo base_url('static/js/jquery-min.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('static/js/jquery.form.js');?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('static/js/yuebee_ucenter.js');?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('static/js/yuebee_settings.js');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('static/js/jquery.Jcrop.min.js')?>"></script>
 </head>
 <body>

@@ -13,6 +13,13 @@
 
         <div id="input_text">
             <textarea id="feed_textarea" placeholder="最近发生了什么新鲜事..."></textarea>
+            <div id="status_action">
+                <span></span>
+                <a href="javascript:void(0);" id="publish_status">
+                    发布
+                </a>
+            </div>
+            <div class="clear"></div>
         </div>
         <div id="feed_menu">
             <p>
@@ -48,7 +55,7 @@
                         <div class='comment_item'>
                             <div class='comment_avatar'> <img src='<?php echo site_url('avatar/get/'.$feed['first_comment']->author_id.'/'.md5($feed['first_comment']->author_nickname).'/30/'.rand());?>' height='30' width='30' /></div>
                             <div class='comment_main'>
-                                <a href='' class='reply_nickname'><?php echo $feed['first_comment']->author_nickname;?></a><?php echo $feed['first_comment']->comment;?>
+                                <a href='<?php echo site_url('users/'.$feed['first_comment']->author_id.'/'.$feed['first_comment']->author_nickname);?>' class='reply_nickname'><?php echo $feed['first_comment']->author_nickname;?></a> : <?php echo $feed['first_comment']->comment;?>
                             </div>
                             <p><span class='reply' style='float:right;display: none;'><a href='javascript:void(0);' name="<?php echo $feed['feed_id'];?>">回复</a></span></p>
                             <div class='clear'></div>
@@ -64,7 +71,7 @@
                         <div class='comment_item'>
                             <div class='comment_avatar'> <img src='<?php echo site_url('avatar/get/'.$feed['last_comment']->author_id.'/'.md5($feed['last_comment']->author_nickname).'/30/'.rand());?>' height='30' width='30' /></div>
                             <div class='comment_main'>
-                                <a href='' class='reply_nickname'><?php echo $feed['last_comment']->author_nickname;?></a><?php echo $feed['last_comment']->comment;?>
+                                <a href='<?php echo site_url('users/'.$feed['last_comment']->author_id.'/'.$feed['last_comment']->author_nickname);?>' class='reply_nickname'><?php echo $feed['last_comment']->author_nickname;?></a> : <?php echo $feed['last_comment']->comment;?>
                             </div>
                             <p><span class='reply' style='float:right;display: none;'><a href='javascript:void(0);' name="<?php echo $feed['feed_id'];?>">回复</a></span></p>
                             <div class='clear'></div>

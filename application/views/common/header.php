@@ -8,10 +8,6 @@
  * 模板header
  *
  */
-
-$uid = $this->input->cookie('uid');//是否登录
-$nickname = $this->input->cookie('nickname');//昵称
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +22,7 @@ $nickname = $this->input->cookie('nickname');//昵称
 <body>
 <div id="main" class="main">
     <div id="top_menu">
-        <?php if( $uid == FALSE ):?>
+        <?php if( ! $is_logined ):?>
         <ul>
             <li><a href="<?php echo site_url('accounts/register/'); ?>">注册</a></li>
             <li><a href="<?php echo site_url('accounts/login/'); ?>">登录 |&nbsp;</a></li>
